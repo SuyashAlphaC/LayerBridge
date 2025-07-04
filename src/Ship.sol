@@ -154,8 +154,6 @@ contract Ship is
         emit PassengerBoarded(_creator, _initialTokens, _initialAmounts, 1);
     }
 
-   
-
     function checkUpkeep(
         bytes calldata checkData
     ) external override returns (bool upkeepNeeded, bytes memory performData) {}
