@@ -137,18 +137,44 @@ contract ShipFactory is OwnerIsCreator , ReentrancyGuard {
         }
         return baseFee;
     }
-
-    function getShip() external {}
-
-    function getUserShips() external{}
-
-    function getTotalShips() external {}
-
-    function updateCapacityFee(uint8 _capacity, uint256 _fees) external {}
-
-    function withdrawExcessFee() external {}
-
-    function getCapacityFee(uint8 _capacity) external {}
-
-    receive() external payable{}
+ function getShip(uint256 _shipId) external view returns (address) {
+        return ships[_shipId];
+    }
+    
+    /**
+     * @dev Get user's ships
+     */
+    function getUserShips(address _user) external view returns (uint256[] memory) {
+        return userShips[_user];
+    }
+    
+    /**
+     * @dev Get total number of ships created
+     */
+    function getTotalShips() external view returns (uint256) {
+        return shipCounter;
+    }
+    
+    /**
+     * @dev Update capacity fees (only owner)
+     */
+    function updateCapacityFee(uint8 _capacity, uint256 _fee) external onlyOwner {
+        capacityFees[_capacity] = _fee;
+    }
+    
+    /**
+     * @dev Withdraw collected fees (only owner)
+     */
+    function withdrawFees() external onlyOwner {
+        payable(owner()).transfer(address(this).balance);
+    }
+    
+    /**
+     * @dev Get capacity fee
+     */
+    function getCapacityFee(uint8 _capacity) external view returns (uint256) {
+        return capacityFees[_capacity];
+    }
+    
+    receive() external payable {}
 }
