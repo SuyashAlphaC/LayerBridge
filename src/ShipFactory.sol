@@ -13,11 +13,11 @@ contract ShipFactory {
 
     function getTotalShips() external {}
 
-    function updateCapacityFee(uint8 _capacity, uint256 _fees) external {}
+    function updateCapacityFee() external {}
 
     function withdrawExcessFee() external {}
 
-    function getCapacityFee(uint8 _capacity) external {}
+    function getCapacityFee() external {}
 
     receive() external payable{}
 }
